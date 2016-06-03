@@ -11,8 +11,64 @@ export class JSON_TS {
   /**
    *
    */
+  protected static enclose(open: string, input: string, close: string): string {
+    return open + input + close;
+  }
+
+  /**
+   *
+   */
+  protected static stringify_array(json_obj: any[]): string {
+    let result = "";
+    if (json_obj.length) {
+      result += this.stringify(json_obj[0]);
+      for (let i = 1; i < json_obj.length; i++) {
+        result += "," + this.stringify(json_obj[i]);
+      }
+    }
+    return result;
+  }
+
+  /**
+   *
+   */
+  protected static stringify_object(json_obj: HT_TYPE): string {
+    let need_comma = false;
+    let result = "";
+    for (let key in json_obj) {
+      if (need_comma) {
+        result += ",";
+        need_comma = false;
+      }
+      result += this.enclose("\"", key , "\":") + this.stringify(json_obj[key]);
+      need_comma = true;
+    }
+    return result;
+  }
+
+  /**
+   *
+   */
   static stringify(json_obj: HT_TYPE): string {
-    return "";
+    let result = "";
+    if (json_obj instanceof Array) {
+      result += this.enclose("[", this.stringify_array(json_obj), "]");
+    }
+    else if (typeof json_obj === 'object') {
+      result += this.enclose("{", this.stringify_object(json_obj), "}");
+    }
+    else {
+      if (typeof json_obj === 'boolean') {
+        result += json_obj ? "true" : "false";
+      }
+      else if (typeof json_obj === 'string') {
+        result += this.enclose("\"", json_obj, "\"");
+      }
+      else {
+        result += json_obj;
+      }
+    }
+    return result;
   }
 
   /**
