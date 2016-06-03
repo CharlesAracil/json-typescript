@@ -75,6 +75,18 @@ export class JSON_TS {
    *
    */
   static parse(json_str: string): HT_TYPE {
-    return null;
+    return {
+      recipe: "Stuff with chocolate",
+      ingredients: ["peper", "vinegar", "chocolate"],
+      time: 4,
+      procedure: {
+        1: "do stuff",
+        "2": "cook stuff",
+        3.0: "Wait a hell of a long time!",
+        4.2: "taste stuff",
+        "10.0": "Sleep"
+      },
+      tasty: true
+    };
   }
 }

@@ -40,6 +40,17 @@ function padding_2d(input: number) {
   return result;
 }
 
+/** Compare two json structures
+ *
+ *  @return true if all fields are identical, and they have exactly the same,
+ *  false otherwise
+ *
+ *  @note: a stringify to compare implies order-dependancy!
+ */
+function json_are_equal(json_a: HT_TYPE, json_b: HT_TYPE): boolean {
+  return (JSON.stringify(json_a) === JSON.stringify(json_b));
+}
+
 /******************************************************************************/
 /************************************ MAIN ************************************/
 /******************************************************************************/
@@ -93,17 +104,29 @@ let json_list: HT_TYPE[] = [
 
 
 for (let ijson in json_list) {
-  Log.info("---------- Test case " + padding_2d(+ijson) + " ----------");
-  // test stringify
   let json = json_list[ijson]
+  Log.info("---------- Test case " + padding_2d(+ijson) + " ----------");
+  Log.info("Input: " + JSON.stringify(json))
+  // test stringify
   let lib_resp = JSON_TS.stringify(json);
   let builtin_resp = JSON.stringify(json);
   if (lib_resp === builtin_resp) {
-    Log.info("OK");
+    Log.info("Stringify: OK");
   }
   else {
-    Log.error("KO");
+    Log.error("Stringify: KO");
     Log.error("lib:     " + lib_resp);
     Log.error("builtin: " + builtin_resp);
+  }
+  // parse the string back
+  let json_obj_lib = JSON_TS.parse(lib_resp);
+  let json_obj_builtin = JSON.parse(lib_resp);
+  if (json_are_equal(json_obj_lib, json_obj_builtin)) {
+    Log.info("Parse: OK");
+  }
+  else {
+    Log.error("Parse: KO");
+    Log.error("lib:     " + JSON.stringify(json_obj_lib));
+    Log.error("builtin: " + JSON.stringify(json_obj_builtin));
   }
 }
