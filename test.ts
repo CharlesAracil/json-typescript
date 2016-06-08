@@ -60,6 +60,12 @@ function json_are_equal(json_a: HT_TYPE, json_b: HT_TYPE): boolean {
  *  Will be iterated over to test JSON transformations.
  */
 let json_list: HT_TYPE[] = [
+  true,
+  false,
+  7,
+  3.14,
+  "Giberjab",
+  "Holly\"Escape",
   {},
   [],
   ["bunny", "carot"],
@@ -91,7 +97,7 @@ let json_list: HT_TYPE[] = [
     title: "A road to BlackALand",
     price: 12.50,
     available: true,
-    tags: ["green", "culture"],
+    tags: ["green", 2, true, "pepper"],
     owner: {
       id: {
         name: "Bob",
@@ -99,17 +105,21 @@ let json_list: HT_TYPE[] = [
       },
       address: "21th happy street",
       telephone: "0123456789"
-    }}
+    }},
+    [2, "truc", [false, "fuck this is nested!"]]
 ];
 
 
 for (let ijson in json_list) {
   let json = json_list[ijson]
   Log.info("---------- Test case " + padding_2d(+ijson) + " ----------");
-  Log.info("Input: " + JSON.stringify(json))
   // test stringify
+  Log.info("# Stringify");
+  Log.info("Input: " + JSON.stringify(json))
   let lib_resp = JSON_TS.stringify(json);
   let builtin_resp = JSON.stringify(json);
+  Log.info("Output lib:     " + lib_resp);
+  Log.info("Output builtin: " + builtin_resp);
   if (lib_resp === builtin_resp) {
     Log.info("Stringify: OK");
   }
@@ -119,8 +129,12 @@ for (let ijson in json_list) {
     Log.error("builtin: " + builtin_resp);
   }
   // parse the string back
-  let json_obj_lib = JSON_TS.parse(lib_resp);
-  let json_obj_builtin = JSON.parse(lib_resp);
+  Log.info("# Parse");
+  Log.info("Input: " + builtin_resp)
+  let json_obj_lib = JSON_TS.parse(builtin_resp);
+  let json_obj_builtin = JSON.parse(builtin_resp);
+  Log.info("Output lib:     " + JSON.stringify(json_obj_lib));
+  Log.info("Output builtin: " + JSON.stringify(json_obj_builtin));
   if (json_are_equal(json_obj_lib, json_obj_builtin)) {
     Log.info("Parse: OK");
   }
