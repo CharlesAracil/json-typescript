@@ -1,5 +1,9 @@
 /** A Typescript implementation of a JSON parser
  *
+ *  Repository can be found at https://github.com/CharlesAracil/json-typescript.
+ *  Some of the code is based on the javascript implementation json.js, which can be found at
+ *  https://github.com/douglascrockford/JSON-js.
+ *
  */
 
 type SCALAR_TYPE = boolean|number|string;
@@ -9,6 +13,9 @@ type HT_TYPE = {[key: string]: any};
 /** Json parser class
  *
  *  Stringify and parse json structures.
+ *
+ *  Both stringify and parse methods throw an SyntaxError exception if they
+ *  receive an invalid structure.
  */
 export class JSON_TS {
 
@@ -22,9 +29,6 @@ export class JSON_TS {
     return open + input + close;
   }
 
-  /**
-   *
-   */
   protected static stringify_array(json_obj: any[]): string {
     let result = "";
     if (json_obj.length) {
@@ -36,9 +40,6 @@ export class JSON_TS {
     return result;
   }
 
-  /**
-   *
-   */
   protected static stringify_object(json_obj: HT_TYPE): string {
     let need_comma = false;
     let result = "";
@@ -53,8 +54,11 @@ export class JSON_TS {
     return result;
   }
 
-  /**
+  /** Stringify a json object
    *
+   *  @param json_obj the json structure
+   *
+   *  @return a string containing the serialized json
    */
   static stringify(json_obj: HT_TYPE): string {
     let result = "";
@@ -261,6 +265,12 @@ export class JSON_TS {
     }
   }
 
+  /** Parse a serialized json structure
+   *
+   *  @param json_str the serialized json
+   *
+   *  @return the structured json object
+   */
   static parse(json_str: string): any {
     let result;
     this.current_index = 0;
