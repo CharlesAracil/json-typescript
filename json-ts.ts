@@ -71,7 +71,7 @@ export class JSON_TS {
         result += json_obj ? "true" : "false";
       }
       else if (typeof json_obj === 'string') {
-        result += this.enclose("\"", json_obj, "\"");
+        result += this.enclose("\"", json_obj.replace(/\"/g, "\\\""), "\"");
       }
       else {
         result += json_obj;
