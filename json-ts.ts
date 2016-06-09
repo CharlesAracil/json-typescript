@@ -195,7 +195,7 @@ export class JSON_TS {
     this.error("Bad string");
   }
 
-  protected static parse_array() {
+  protected static parse_array(): any[] {
     var result = [];
     if (this.current_char === "[") {
       this.next("[");
@@ -218,7 +218,7 @@ export class JSON_TS {
     this.error("Bad array");
   }
 
-  protected static parse_object() {
+  protected static parse_object(): any {
     var key;
     var result = {};
     if (this.current_char === "{") {
@@ -248,7 +248,7 @@ export class JSON_TS {
     this.error("Bad object");
   }
 
-  protected static parse_value() {
+  protected static parse_value(): any {
     this.white();
     switch (this.current_char) {
       case "{":

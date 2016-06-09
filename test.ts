@@ -14,19 +14,19 @@ type HT_TYPE = {[key: string]: any};  /* type alias export not supported yet */
  *
  */
 class Log {
-  protected static echo(prefix: string, message: string) {
+  protected static echo(prefix: string, message: string): void {
     console.log(prefix + " " + message)
   }
-  static info(message: string) {
+  static info(message: string): void {
     this.echo("[?]", message);
   }
-  static warning(message: string) {
+  static warning(message: string): void {
     this.echo("[!]", message);
   }
-  static error(message: string) {
+  static error(message: string): void {
     this.echo("[X]", message);
   }
-  static debug(message: string) {
+  static debug(message: string): void {
     this.echo("[D]", message);
   }
 }
@@ -35,7 +35,7 @@ class Log {
  *
  *  Work only for value inferior than 100.
  */
-function padding_2d(input: number) {
+function padding_2d(input: number): string {
   let result = (input < 10) ? "0" + input : "" + input;
   return result;
 }
