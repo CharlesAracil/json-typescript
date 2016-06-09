@@ -6,8 +6,6 @@
  *
  */
 
-type SCALAR_TYPE = boolean|number|string;
-type ARRAY_TYPE = boolean[]|number[]|string[];
 type HT_TYPE = {[key: string]: any};
 
 /** Json parser class
