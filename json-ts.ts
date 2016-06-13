@@ -277,7 +277,6 @@ export class JSON_TS {
     result = this.parse_value();
     this.white();
     if (this.current_char) {
-      console.log("Error at the end, remains characters: " + this.current_char);
       this.error("Syntax error");
     }
     return result;
