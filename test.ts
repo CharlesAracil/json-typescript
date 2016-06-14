@@ -17,16 +17,16 @@ class Log {
   protected static echo(prefix: string, message: string): void {
     console.log(prefix + " " + message)
   }
-  static info(message: string): void {
+  public static info(message: string): void {
     this.echo("[?]", message);
   }
-  static warning(message: string): void {
+  public static warning(message: string): void {
     this.echo("[!]", message);
   }
-  static error(message: string): void {
+  public static error(message: string): void {
     this.echo("[X]", message);
   }
-  static debug(message: string): void {
+  public static debug(message: string): void {
     this.echo("[D]", message);
   }
 }

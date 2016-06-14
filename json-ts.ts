@@ -58,7 +58,7 @@ export class JSON_TS {
    *
    *  @return a string containing the serialized json
    */
-  static stringify(json_obj: HT_TYPE): string {
+  public static stringify(json_obj: HT_TYPE): string {
     let result = "";
     if (json_obj instanceof Array) {
       result += this.enclose("[", this.stringify_array(json_obj), "]");
@@ -269,7 +269,7 @@ export class JSON_TS {
    *
    *  @return the structured json object
    */
-  static parse(json_str: string): any {
+  public static parse(json_str: string): any {
     let result;
     this.current_index = 0;
     this.current_char = " ";
