@@ -92,6 +92,7 @@ let json_list: HT_TYPE[] = [
   3.14,
   "Giberjab",
   "Holly\"Escape",
+  "\"\r\"Hello\nFucking\tcrap\"\"",
   {},
   [],
   ["bunny", "carot"],
@@ -144,8 +145,6 @@ for (let ijson in json_list) {
   Log.info("Input: " + JSON.stringify(json))
   let lib_resp = JSON_TS.stringify(json);
   let builtin_resp = JSON.stringify(json);
-  Log.info("Output lib:     " + lib_resp);
-  Log.info("Output builtin: " + builtin_resp);
   if (lib_resp === builtin_resp) {
     Log.info("Stringify: OK");
   }
@@ -159,8 +158,6 @@ for (let ijson in json_list) {
   Log.info("Input: " + builtin_resp)
   let json_obj_lib = JSON_TS.parse(builtin_resp);
   let json_obj_builtin = JSON.parse(builtin_resp);
-  Log.info("Output lib:     " + JSON.stringify(json_obj_lib));
-  Log.info("Output builtin: " + JSON.stringify(json_obj_builtin));
   if (json_are_equal(json_obj_lib, json_obj_builtin)) {
     Log.info("Parse: OK");
   }

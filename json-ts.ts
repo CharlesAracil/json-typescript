@@ -97,7 +97,12 @@ export class JSON_TS {
         result += json_obj ? "true" : "false";
       }
       else if (typeof json_obj === 'string') {
-        result += this.enclose("\"", json_obj.replace(/\"/g, "\\\""), "\"");
+        result += this.enclose("\"", json_obj.replace(/\"/g, "\\\"")
+                                             .replace(/\\/g, "\\\\")
+                                             .replace(/\t/g, "\\t")
+                                             .replace(/\n/g, "\\n")
+                                             .replace(/\f/g, "\\f")
+                                             .replace(/\r/g, "\\r"), "\"");
       }
       else {
         result += json_obj;
@@ -196,6 +201,16 @@ export class JSON_TS {
 
   protected static parse_string(): string {
     let result = "";
+    let escapee = {
+        "\"": "\"",
+        "\\": "\\",
+        "/": "/",
+        b: "\b",
+        f: "\f",
+        n: "\n",
+        r: "\r",
+        t: "\t"
+    };
     if (this.current_char === "\"") {
       while (this.next()) {
         if (this.current_char === "\"") {
@@ -204,8 +219,8 @@ export class JSON_TS {
         }
         if (this.current_char === "\\") {
           this.next();
-          if (this.current_char === "\"") {
-            result += "\"";
+          if (typeof escapee[this.current_char] === "string") {
+            result += escapee[this.current_char];
           }
           else {
             break;
